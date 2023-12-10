@@ -1,6 +1,6 @@
-package com.backinteligente.behaviours;
+package behaviours;
 
-import com.backinteligente.algorithm.Minimax;
+import algorithm.Minimax;
 
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -22,7 +22,9 @@ public class TrikiSimpleBehaviour extends SimpleBehaviour {
             if (bestMove[0] == -1 && bestMove[1] == -1) {
                 gameFinished = true;
             } else {
-                System.out.println("Mejor movimiento: Fila " + bestMove[0] + ", Columna " + bestMove[1]);
+                // System.out.println("Mejor movimiento: Fila " + bestMove[0] + ", Columna " +
+                // bestMove[1]);
+                System.out.println("Fila " + bestMove[0] + ", Columna " + bestMove[1]);
             }
         }
     }

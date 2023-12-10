@@ -1,20 +1,36 @@
-package com.backinteligente.controllers;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import algorithm.Minimax;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.ContainerController;
 import jade.wrapper.ControllerException;
 import jade.wrapper.StaleProxyException;
+import models.BoardResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
+/**
+ *
+ * @author Asus
+ */
 public class AgentController implements HttpHandler {
 
     private ContainerController container;
@@ -30,12 +46,37 @@ public class AgentController implements HttpHandler {
         container = rt.createMainContainer(profile);
     }
 
-@Override
+    @Override
     public void handle(HttpExchange exchange) throws IOException {
 
         if ("GET".equals(exchange.getRequestMethod())) {
             // Manejar solicitudes GET
             String response = executeGETRequest("http://localhost:3000/datos");
+
+            // Imprimir el resultado en la consola
+            // Parsear la respuesta JSON
+            System.out.println("Resultado obtenido con GET: " + response);
+
+            // Parsear la respuesta JSON con Gson
+            try {
+                Gson gson = new Gson();
+                BoardResponse boardResponse = gson.fromJson(response, BoardResponse.class);
+
+                // Verificar si el objeto BoardResponse no es nulo y tiene datos
+                if (boardResponse != null && boardResponse.getData() != null) {
+                    // Ahora 'boardResponse.getData()' es la matriz que necesitas
+                    char[][] matrix = boardResponse.getData();
+                    Minimax.setBoard(matrix);
+                    System.out.println("Resultado despues parsear: " + matrix);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Manejar el caso en el que la respuesta no sea un JSON válido
+            }
+            // char[][] updatedBoard = parseJSONResponse(response);
+
+            // Minimax.setBoard(updatedBoard);
 
             exchange.getResponseHeaders().set("Content-Type", "application/json");
             exchange.sendResponseHeaders(200, response.length());

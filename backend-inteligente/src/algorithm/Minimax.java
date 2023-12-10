@@ -1,24 +1,25 @@
-package com.backinteligente.algorithm;
+package algorithm;
 
 public class Minimax {
 
     static char[][] board = {
-            {'T', ' ', ' '},
-            {'C', 'C', 'T'},
-            {'C', 'C', 'T'}
+            { ' ', ' ', ' ' },
+            { ' ', 'T', ' ' },
+            { 'C', 'C', 'T' }
     };
 
-    public static void main(String[] args) {
-        int[] bestMove = bestMove();
-        if (bestMove[0] == -1 && bestMove[1] == -1) {
-            System.out.println("¡Juego terminado!.");
-        } 
-        System.out.println("Mejor movimiento: Fila " + bestMove[0] + ", Columna " + bestMove[1]);
-    }
+    // public static void main(String[] args) {
+    // int[] bestMove = bestMove();
+    // if (bestMove[0] == -1 && bestMove[1] == -1) {
+    // System.out.println("¡Juego terminado!.");
+    // }
+    // System.out.println("Mejor movimiento: Fila " + bestMove[0] + ", Columna " +
+    // bestMove[1]);
+    // }
 
     public static int[] bestMove() {
         int bestEval = Integer.MIN_VALUE;
-        int[] bestMove = new int[]{-1, -1};
+        int[] bestMove = new int[] { -1, -1 };
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -37,7 +38,7 @@ public class Minimax {
 
                         if (eval.getPlayer() != ' ') {
                             // Juego terminado
-                            System.out.println("¡Juego terminado! Ganador: " + eval.getPlayer());
+                            // System.out.println("¡Juego terminado! Ganador: " + eval.getPlayer());
                             return bestMove; // Indicador de juego terminado
                         }
                     }
@@ -97,8 +98,8 @@ public class Minimax {
         }
     }
 
-
-    // Función de evaluación: retorna 1 si el jugador 'C' (cuadrado) gana, -1 si el jugador 'T' (triángulo) gana, 0 si empate o no hay ganador
+    // Función de evaluación: retorna 1 si el jugador 'C' (cuadrado) gana, -1 si el
+    // jugador 'T' (triángulo) gana, 0 si empate o no hay ganador
     static Tuple evaluation(char[][] board) {
         if (isWinner(board, 'C')) {
             return new Tuple(1, 'C');
@@ -109,8 +110,8 @@ public class Minimax {
         }
     }
 
-
-    // Verifica si hay un ganador para un jugador específico en filas y columnas (movimientos ortogonales)
+    // Verifica si hay un ganador para un jugador específico en filas y columnas
+    // (movimientos ortogonales)
     static boolean isWinner(char[][] board, char player) {
         for (int i = 0; i < 3; i++) {
             // Check rows
@@ -168,5 +169,10 @@ public class Minimax {
         public char getPlayer() {
             return player;
         }
+    }
+
+    // Set the board in the Minimax class
+    public static void setBoard(char[][] newBoard) {
+        board = newBoard;
     }
 }
