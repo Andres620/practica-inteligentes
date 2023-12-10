@@ -151,7 +151,7 @@ while True:
         mostrar_matriz(matriz_resultante)
          # Envia nuevos_mensajes al servidor mediante una solicitud POST
         try:
-            response = requests.post(url, json={'mensajes': list(matriz_resultante)})
+            response = requests.post(url, json={'data': list(matriz_resultante)})
             #response = requests.post(url, json={'mensajes': list(matriz_resultante)})
             if response.status_code == 200:
                 print("Datos enviados al servidor con éxito")

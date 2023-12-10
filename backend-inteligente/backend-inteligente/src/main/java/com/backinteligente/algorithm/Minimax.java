@@ -16,7 +16,7 @@ public class Minimax {
         System.out.println("Mejor movimiento: Fila " + bestMove[0] + ", Columna " + bestMove[1]);
     }
 
-    static int[] bestMove() {
+    public static int[] bestMove() {
         int bestEval = Integer.MIN_VALUE;
         int[] bestMove = new int[]{-1, -1};
 
