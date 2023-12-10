@@ -1,0 +1,33 @@
+# Java with Maven
+/target/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+mvnw
+mvnw.cmd
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyz
+*.pyc
+*.pyo
+/.vscode/
+/.idea/
+
+# Node.js
+node_modules/
+*.log
+*.lock
+npm-debug.log*
+yarn-error.log*
+/.vscode/
+.DS_Store
