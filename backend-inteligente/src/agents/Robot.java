@@ -11,8 +11,6 @@ import jade.core.Agent;
 public class Robot extends Agent {
     
     protected void setup() {
-        System.out.println("Hola, soy un agente JADE.");
-
         TrikiSimpleBehaviour trikiBehaviour = new TrikiSimpleBehaviour(this);
         addBehaviour(trikiBehaviour);
     }

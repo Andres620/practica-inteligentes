@@ -4,8 +4,8 @@ public class Minimax {
 
     static char[][] board = {
             { ' ', ' ', ' ' },
-            { ' ', 'T', ' ' },
-            { 'C', 'C', 'T' }
+            { ' ', ' ', ' ' },
+            { ' ', ' ', ' ' }
     };
 
     // public static void main(String[] args) {

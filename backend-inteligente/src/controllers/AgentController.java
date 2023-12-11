@@ -11,7 +11,9 @@ import com.google.gson.JsonObject;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import agents.Robot;
 import algorithm.Minimax;
+import behaviours.TrikiSimpleBehaviour;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.ContainerController;
@@ -34,6 +36,7 @@ import java.util.Arrays;
 public class AgentController implements HttpHandler {
 
     private ContainerController container;
+    private boolean agentCreated = false;
 
     public AgentController() {
         // Inicializa la plataforma JADE
@@ -53,10 +56,6 @@ public class AgentController implements HttpHandler {
             // Manejar solicitudes GET
             String response = executeGETRequest("http://localhost:3000/datos");
 
-            // Imprimir el resultado en la consola
-            // Parsear la respuesta JSON
-            System.out.println("Resultado obtenido con GET: " + response);
-
             // Parsear la respuesta JSON con Gson
             try {
                 Gson gson = new Gson();
@@ -67,7 +66,6 @@ public class AgentController implements HttpHandler {
                     // Ahora 'boardResponse.getData()' es la matriz que necesitas
                     char[][] matrix = boardResponse.getData();
                     Minimax.setBoard(matrix);
-                    System.out.println("Resultado despues parsear: " + matrix);
                 }
 
             } catch (Exception e) {
@@ -84,10 +82,8 @@ public class AgentController implements HttpHandler {
             os.write(response.getBytes());
             os.close();
 
-            // Iniciar el agente solo cuando se recibe la primera solicitud GET
-            if (!agentExists("Robot1")) {
-                initAgent();
-            }
+            handleAgent();
+
         } else if ("POST".equals(exchange.getRequestMethod())) {
             // Procesar la solicitud POST
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody());
@@ -149,28 +145,24 @@ public class AgentController implements HttpHandler {
         }
     }
 
-    private void initAgent() {
+
+
+    private void handleAgent() {
         try {
             // Crea un agente
             jade.wrapper.AgentController agent = container.createNewAgent("Robot1", "agents.Robot", null);
-
-            // Inicializa el agente
-            System.out.println("Iniciando agente");
+            jade.wrapper.AgentController receptor = container.createNewAgent("Receptor", "agents.RobotReceptor", null);
             agent.start();
+            receptor.start();
+            
+            Thread.sleep(1000);
+
+            agent.kill();
+            receptor.kill();
         } catch (StaleProxyException e) {
             e.printStackTrace();
-        }
-    }
-
-    private boolean agentExists(String agentName) {
-        try {
-            // Intentar obtener el agente con el nombre dado
-            jade.wrapper.AgentController agent = container.getAgent(agentName);
-            return agent != null;
-        } catch (ControllerException e) {
-            // Manejar la excepción si ocurre un problema con el controlador
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
