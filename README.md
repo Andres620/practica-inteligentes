@@ -1,4 +1,4 @@
-# practica-inteligentes
+# práctica-inteligentes
 
 El triki ortogonal gravitatorio consiste en ubicar el marcador "cuadrado" o "triangulo" de manera estratégica de tal modo que queden alineados 3 marcadores del mismo tipo de manera "ortogonal" esto quiere decir alineación horizontal o vertical (no se permiten en diagonal). Gravitatorio se refiere a que las fichas tienen una "gravedad" que las hace caer hacia abajo en el tablero. Es decir, si una casilla debajo de una ficha está vacía, entonces la ficha caerá automáticamente a esa casilla. Esto hace que el juego sea un poco más desafiante y estratégico.
 
@@ -46,6 +46,6 @@ En esta práctica usted deberá:
 
 **Diagrama Arquitectónico**
 
-![Arquitectura](Arquitectura.png)
+![Arquitectura](/images/arquitectura.png)
 
 
